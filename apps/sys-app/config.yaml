@@ -13,7 +13,7 @@ service:
 # 日志相关
 logger:
   level: info
-  prefix: '[github.com/Hakunari/supertools-go/server/sys-app]'
+  prefix: '[github.com/Hakunari/supertools-go/sys-app]'
   format: console
   directory: log
   encode-level: LowercaseColorLevelEncoder

@@ -2,7 +2,7 @@
 package logger
 
 import (
-	"github.com/Hakunari/supertools-go/server/pkg/models"
+	"github.com/Hakunari/supertools-go/pkg/models"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"

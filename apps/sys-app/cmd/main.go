@@ -2,7 +2,7 @@
 package main
 
 import (
-	"github.com/Hakunari/supertools-go/server/apps/sys-app/internal/initialize"
+	"github.com/Hakunari/supertools-go/apps/sys-app/internal/initialize"
 )
 
 func main() {

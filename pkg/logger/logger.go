@@ -3,8 +3,8 @@ package logger
 
 import (
 	"fmt"
-	"github.com/Hakunari/supertools-go/server/pkg/models"
-	"github.com/Hakunari/supertools-go/server/pkg/utils"
+	"github.com/Hakunari/supertools-go/pkg/models"
+	"github.com/Hakunari/supertools-go/pkg/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"

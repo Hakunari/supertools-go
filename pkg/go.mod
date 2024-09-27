@@ -1,4 +1,4 @@
-module github.com/Hakunari/supertools-go/server/pkg
+module github.com/Hakunari/supertools-go/pkg
 
 go 1.23.1
 

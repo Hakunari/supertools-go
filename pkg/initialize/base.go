@@ -3,9 +3,9 @@ package initialize
 
 import (
 	"fmt"
-	"github.com/Hakunari/supertools-go/server/pkg/consul"
-	"github.com/Hakunari/supertools-go/server/pkg/logger"
-	"github.com/Hakunari/supertools-go/server/pkg/models"
+	"github.com/Hakunari/supertools-go/pkg/consul"
+	"github.com/Hakunari/supertools-go/pkg/logger"
+	"github.com/Hakunari/supertools-go/pkg/models"
 	"github.com/joho/godotenv"
 	"go.uber.org/zap"
 	"os"

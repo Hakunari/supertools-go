@@ -3,7 +3,7 @@ package initialize
 
 import (
 	"fmt"
-	"github.com/Hakunari/supertools-go/server/pkg/models"
+	"github.com/Hakunari/supertools-go/pkg/models"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

@@ -2,8 +2,8 @@
 package global
 
 import (
-	serviceCfg "github.com/Hakunari/supertools-go/server/apps/sys-app/internal/models"
-	baseCfg "github.com/Hakunari/supertools-go/server/pkg/models"
+	serviceCfg "github.com/Hakunari/supertools-go/apps/sys-app/internal/models"
+	baseCfg "github.com/Hakunari/supertools-go/pkg/models"
 	"go.uber.org/zap"
 )
 

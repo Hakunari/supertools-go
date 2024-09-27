@@ -4,7 +4,7 @@ package consul
 import (
 	"bytes"
 	"fmt"
-	"github.com/Hakunari/supertools-go/server/pkg/models"
+	"github.com/Hakunari/supertools-go/pkg/models"
 	"github.com/hashicorp/consul/api"
 	"github.com/spf13/viper"
 	"os"

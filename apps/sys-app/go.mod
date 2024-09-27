@@ -1,4 +1,4 @@
-module github.com/Hakunari/supertools-go/server/apps/sys-app
+module github.com/Hakunari/supertools-go/apps/sys-app
 
 go 1.23.1
 
