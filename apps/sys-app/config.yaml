@@ -1,0 +1,23 @@
+consul:
+  host: "127.0.0.1"
+  port: 8500
+
+service:
+  name: "sys-app"
+  address: "192.168.2.168"
+  port: 5657
+  check:
+    interval: "10s"
+    timeout: "1s"
+
+# 日志相关
+logger:
+  level: info
+  prefix: '[github.com/Hakunari/supertools-go/server/sys-app]'
+  format: console
+  directory: log
+  encode-level: LowercaseColorLevelEncoder
+  stacktrace-key: stacktrace
+  show-line: true
+  log-in-console: true
+  retention-day: -1

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  consul:
+    image: consul:1.15.4
+#    command: agent -dev -client=0.0.0.0 -bind=127.0.0.1    # 启动 Consul 代理，使用开发模式，客户端接口绑定到所有网络接口，服务器接口绑定到本地回环地址。
+    command: agent -server -bootstrap -ui -client=0.0.0.0 -node=consul-server -data-dir=/consul/data -config-dir=/consul/config
+    ports:
+      - "8500:8500"
+    volumes:
+      - consul-data:/consul/data
+      - consul-config:/consul/models
+    networks:
+      - consul-net
+
+# 使用 Docker 卷默认驱动来管理数据存储位置，无需指定路径。
+# 如果需要指定路径，在 services/consul 下设置每个 volume 的映射。
+volumes:
+  consul-data:
+    driver: local
+  consul-config:
+    driver: local
+
+networks:
+  consul-net:
+    driver: bridge
