@@ -1,0 +1,22 @@
+consul:
+  host: "127.0.0.1"
+  port: 8500
+
+service:
+  name: "example-app"
+  address: "192.168.2.168"
+  port: 5659
+  check:
+    interval: "10s"
+    timeout: "1s"
+
+logger:
+  level: info
+  prefix: '[github.com/Hakunari/supertools-go/example-app]'
+  format: console
+  directory: log
+  encode-level: LowercaseColorLevelEncoder
+  stacktrace-key: stacktrace
+  show-line: true
+  log-in-console: true
+  retention-day: -1
