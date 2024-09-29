@@ -54,7 +54,6 @@ func (c *LoggerConfig) Encoder() zapcore.Encoder {
 }
 
 // LevelEncoder 根据 EncodeLevel 返回 zapcore.LevelEncoder
-// Author [SliverHorn](https://github.com/SliverHorn)
 func (c *LoggerConfig) LevelEncoder() zapcore.LevelEncoder {
 	switch {
 	case c.EncodeLevel == "LowercaseLevelEncoder": // 小写编码器(默认)

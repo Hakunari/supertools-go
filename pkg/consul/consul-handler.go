@@ -10,7 +10,8 @@ import (
 	"os"
 )
 
-func RegisterService(glbLocalConfig *models.ServiceLocalConfig) error {
+// RegisterService 注册服务
+func RegisterService(localConfig *models.ServiceLocalConfig) error {
 
 	// register to consul.
 	consulConfig := api.DefaultConfig()
@@ -20,13 +21,13 @@ func RegisterService(glbLocalConfig *models.ServiceLocalConfig) error {
 	}
 
 	registration := &api.AgentServiceRegistration{
-		Name:    glbLocalConfig.Service.Name,
-		Address: glbLocalConfig.Service.Address,
-		Port:    glbLocalConfig.Service.Port,
+		Name:    localConfig.Service.Name,
+		Address: localConfig.Service.Host,
+		Port:    localConfig.Service.Port,
 		Check: &api.AgentServiceCheck{
-			HTTP:     fmt.Sprintf("http://%s:%d/health", glbLocalConfig.Service.Address, glbLocalConfig.Service.Port),
-			Interval: glbLocalConfig.Service.Check.Interval,
-			Timeout:  glbLocalConfig.Service.Check.Timeout,
+			HTTP:     fmt.Sprintf("http://%s:%d/health", localConfig.Service.Host, localConfig.Service.Port),
+			Interval: localConfig.Service.Check.Interval,
+			Timeout:  localConfig.Service.Check.Timeout,
 		},
 	}
 
@@ -37,13 +38,7 @@ func RegisterService(glbLocalConfig *models.ServiceLocalConfig) error {
 	return nil
 }
 
-// LoadCfgFromConsul
-//
-//	@Description: 从 consul 获取指定服务的配置
-//	@param consulAddr Consul 地址
-//	@param serviceName 服务名称
-//	@return models
-//	@return err
+// LoadCfgFromConsul 从 consul 获取指定服务的配置
 func LoadCfgFromConsul[T models.IAppConfig](consulAddr, serviceName string) (*T, error) {
 	consulConfig := api.DefaultConfig()
 	consulConfig.Address = consulAddr

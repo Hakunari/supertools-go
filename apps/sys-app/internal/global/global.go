@@ -10,5 +10,5 @@ import (
 var (
 	GlbLogger      *zap.Logger
 	GlbLocalConfig *baseCfg.ServiceLocalConfig
-	GlbAppConfig   *serviceCfg.AppConfig
+	GlbAppConfig   *serviceCfg.SysAppConfig
 )

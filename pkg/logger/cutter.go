@@ -1,4 +1,4 @@
-// Package logger @Author hubo 2024/9/26 16:41:00
+// Package logger @Author hubo 2024/9/26 16:41:00 来自 gin-vue-admin
 package logger
 
 import (
@@ -12,7 +12,7 @@ import (
 // 用于日志切割, strings.Join([]string{directory,layout, formats..., level+".log"}, os.PathSeparator)
 type Cutter struct {
 	level        string        // 日志级别(debug, info, warn, error, dpanic, panic, fatal)
-	layout       string        // 时间格式 2006-01-02 15:04:05
+	layout       string        // 时间格式 2024-09-29 15:04:05
 	formats      []string      // 自定义参数([]string{Directory,"2006-01-02", "business"(此参数可不写), level+".log"}
 	directory    string        // 日志文件夹
 	retentionDay int           //日志保留天数

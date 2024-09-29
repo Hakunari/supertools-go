@@ -3,6 +3,14 @@ package models
 
 import "github.com/Hakunari/supertools-go/pkg/models"
 
-type AppConfig struct {
-	models.IAppConfig
+type ExampleAppConfig struct {
+}
+
+type AppLocalConfig struct {
+	models.ServiceLocalConfig `mapstructure:",squash"`
+	TestStr                   string `mapstructure:"test-str"`
+}
+
+func (s AppLocalConfig) GetBaseConfig() *models.ServiceLocalConfig {
+	return &s.ServiceLocalConfig
 }

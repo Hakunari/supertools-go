@@ -12,17 +12,19 @@ type server interface {
 	ListenAndServe() error
 }
 
-func RunServer(localConfig *models.ServiceLocalConfig, logger *zap.Logger, customRoutes func(router *gin.Engine)) {
+func RunServer(localConfig models.IServiceLocalConfig, logger *zap.Logger, customRoutes func(router *gin.Engine)) {
 	router := InitRouters(customRoutes)
 
-	port := fmt.Sprintf(":%d", localConfig.Service.Port)
+	baseLocalConfig := localConfig.GetBaseConfig()
+
+	port := fmt.Sprintf(":%d", baseLocalConfig.Service.Port)
 	serv := initServer(port, router)
 
 	logger.Info(
 		"server running on ",
 		zap.String(
 			"address",
-			fmt.Sprintf("%s:%d", localConfig.Service.Address, localConfig.Service.Port),
+			fmt.Sprintf("%s:%d", baseLocalConfig.Service.Host, baseLocalConfig.Service.Port),
 		),
 	)
 

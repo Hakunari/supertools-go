@@ -1,20 +1,26 @@
 // Package models @Author hubo 2024/9/26 14:14:00 service models model
 package models
 
-import "github.com/spf13/viper"
+import (
+	"github.com/spf13/viper"
+	"reflect"
+)
 
-// IAppConfig
-// @Description: Consul 上服务配置实体
+// IAppConfig Consul 上服务配置接口(空接口)
 type IAppConfig interface{}
 
-// ServiceLocalConfig
-// @Description: 本地配置实体
+// IServiceLocalConfig 本地配置接口
+type IServiceLocalConfig interface {
+	GetBaseConfig() *ServiceLocalConfig
+}
+
+// ServiceLocalConfig 本地配置实体
 type ServiceLocalConfig struct {
 	Service struct {
-		Name    string `mapstructure:"name"`
-		Address string `mapstructure:"address"`
-		Port    int    `mapstructure:"port"`
-		Check   struct {
+		Name  string `mapstructure:"name"`
+		Host  string `mapstructure:"host"`
+		Port  int    `mapstructure:"port"`
+		Check struct {
 			Interval string `mapstructure:"interval"`
 			Timeout  string `mapstructure:"timeout"`
 		} `mapstructure:"check"`
@@ -23,16 +29,12 @@ type ServiceLocalConfig struct {
 	Consul ConsulConfig `mapstructure:"consul"`
 }
 
-type ServiceConfig struct {
+func (s ServiceLocalConfig) GetBaseConfig() *ServiceLocalConfig {
+	return &s
 }
 
-// LoadLocalConfig
-//
-//	@Description: Load service models from yaml.
-//	@param configPath
-//	@return *ServiceLocalConfig
-//	@return error
-func LoadLocalConfig(configPath string) (*ServiceLocalConfig, error) {
+// LoadLocalConfig Load service models from yaml.
+func LoadLocalConfig[S IServiceLocalConfig](configPath string) (*S, error) {
 	v := viper.New()
 
 	v.SetConfigFile(configPath)
@@ -40,10 +42,15 @@ func LoadLocalConfig(configPath string) (*ServiceLocalConfig, error) {
 		return nil, err
 	}
 
-	var config ServiceLocalConfig
-	if err := v.Unmarshal(&config); err != nil {
+	// 需要通过反射创建 S 的实例, 否则会导致空接口反序列化失败, 所有属性为空.
+	configType := reflect.TypeOf((*S)(nil)).Elem()
+	configValue := reflect.New(configType).Interface()
+
+	if err := v.Unmarshal(configValue); err != nil {
 		return nil, err
 	}
 
-	return &config, nil
+	result, _ := configValue.(*S)
+
+	return result, nil
 }

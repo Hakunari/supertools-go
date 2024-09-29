@@ -4,7 +4,7 @@ consul:
 
 service:
   name: "sys-app"
-  address: "192.168.2.168"
+  host: "192.168.2.168"
   port: 5657
   check:
     interval: "10s"

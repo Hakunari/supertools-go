@@ -3,7 +3,7 @@ package models
 
 import "github.com/Hakunari/supertools-go/pkg/models"
 
-type AppConfig struct {
+type SysAppConfig struct {
 	models.IAppConfig `mapstructure:"-"`
 	DbConfig          models.DataBaseConfig `mapstructure:"database"`
 }
