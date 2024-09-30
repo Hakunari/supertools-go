@@ -3,14 +3,14 @@ package logger
 
 import (
 	"fmt"
-	"github.com/Hakunari/supertools-go/pkg/models"
+	"github.com/Hakunari/supertools-go/pkg/config"
 	"github.com/Hakunari/supertools-go/pkg/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"
 )
 
-func InitLogger(loggerConfig models.LoggerConfig) (logger *zap.Logger) {
+func InitLogger(loggerConfig config.LoggerConfig) (logger *zap.Logger) {
 	if ok := utils.DirExists(loggerConfig.Directory); !ok {
 		fmt.Printf("creating %v directory\n", loggerConfig.Directory)
 		_ = os.Mkdir(loggerConfig.Directory, os.ModePerm)

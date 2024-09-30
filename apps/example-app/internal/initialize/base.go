@@ -10,8 +10,11 @@ import (
 
 func InitBase() {
 	var err error
-	global.GlbLogger, global.GlbAppConfig, global.GlbLocalConfig, err = commonInit.InitBase[models.ExampleAppConfig, models.AppLocalConfig]()
+	initRes, err := commonInit.InitBase[models.ExampleAppConfig, models.AppLocalConfig]()
 	if err != nil {
 		zap.L().Fatal("Initialization failed", zap.Error(err))
 	}
+	global.GlbLogger = initRes.Logger
+	global.GlbAppConfig = initRes.AppConfig
+	global.GlbLocalConfig = initRes.LocalConfig
 }

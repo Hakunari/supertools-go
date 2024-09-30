@@ -1,5 +1,5 @@
-// Package models @Author hubo 2024/9/26 14:14:00 service models model
-package models
+// Package config @Author hubo 2024/9/26 14:14:00 service models model
+package config
 
 import (
 	"github.com/spf13/viper"
@@ -7,7 +7,19 @@ import (
 )
 
 // IAppConfig Consul 上服务配置接口(空接口)
-type IAppConfig interface{}
+type IAppConfig interface {
+	GetBaseConfig() *AppConfig
+}
+
+// AppConfig Consul KV 存储基础配置
+type AppConfig struct {
+	DbConfig DataBaseConfig `mapstructure:"database"`
+}
+
+// GetBaseConfig 获取 KV 配置中的基础配置
+func (a AppConfig) GetBaseConfig() *AppConfig {
+	return &a
+}
 
 // IServiceLocalConfig 本地配置接口
 type IServiceLocalConfig interface {
@@ -17,6 +29,7 @@ type IServiceLocalConfig interface {
 // ServiceLocalConfig 本地配置实体
 type ServiceLocalConfig struct {
 	Service struct {
+		Id    string `mapstructure:"-"`
 		Name  string `mapstructure:"name"`
 		Host  string `mapstructure:"host"`
 		Port  int    `mapstructure:"port"`

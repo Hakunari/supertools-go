@@ -2,13 +2,16 @@
 package main
 
 import (
+	"github.com/Hakunari/supertools-go/apps/sys-app/internal/global"
 	"github.com/Hakunari/supertools-go/apps/sys-app/internal/initialize"
+	pkgInit "github.com/Hakunari/supertools-go/pkg/initialize"
 )
 
 func main() {
 	// 初始化基础实例
 	initialize.InitBase()
-	// TODO: 初始化 gorm
+
+	pkgInit.InitGorm(global.GlbAppConfig.DbConfig)
 
 	initialize.RunServer()
 }

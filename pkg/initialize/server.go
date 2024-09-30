@@ -3,7 +3,7 @@ package initialize
 
 import (
 	"fmt"
-	"github.com/Hakunari/supertools-go/pkg/models"
+	"github.com/Hakunari/supertools-go/pkg/config"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -12,7 +12,7 @@ type server interface {
 	ListenAndServe() error
 }
 
-func RunServer(localConfig models.IServiceLocalConfig, logger *zap.Logger, customRoutes func(router *gin.Engine)) {
+func RunServer(localConfig config.IServiceLocalConfig, logger *zap.Logger, customRoutes func(router *gin.Engine)) {
 	router := InitRouters(customRoutes)
 
 	baseLocalConfig := localConfig.GetBaseConfig()

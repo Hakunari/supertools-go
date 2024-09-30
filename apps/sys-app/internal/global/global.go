@@ -3,12 +3,14 @@ package global
 
 import (
 	serviceCfg "github.com/Hakunari/supertools-go/apps/sys-app/internal/models"
-	baseCfg "github.com/Hakunari/supertools-go/pkg/models"
+	baseCfg "github.com/Hakunari/supertools-go/pkg/config"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 var (
 	GlbLogger      *zap.Logger
 	GlbLocalConfig *baseCfg.ServiceLocalConfig
 	GlbAppConfig   *serviceCfg.SysAppConfig
+	GlbDB          *gorm.DB
 )

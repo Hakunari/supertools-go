@@ -3,11 +3,11 @@ package initialize
 
 import (
 	"github.com/Hakunari/supertools-go/apps/example-app/internal/global"
+	"github.com/Hakunari/supertools-go/pkg/config"
 	"github.com/Hakunari/supertools-go/pkg/initialize"
-	"github.com/Hakunari/supertools-go/pkg/models"
 )
 
 func RunServer() {
-	var config models.IServiceLocalConfig = global.GlbLocalConfig
+	var config config.IServiceLocalConfig = global.GlbLocalConfig
 	initialize.RunServer(config, global.GlbLogger, ExampleAppRoutes)
 }

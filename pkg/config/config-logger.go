@@ -1,5 +1,5 @@
-// Package models @Author hubo 2024/9/26 16:27:00
-package models
+// Package config @Author hubo 2024/9/26 16:27:00
+package config
 
 import (
 	"go.uber.org/zap/zapcore"

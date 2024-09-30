@@ -4,14 +4,19 @@ package consul
 import (
 	"bytes"
 	"fmt"
-	"github.com/Hakunari/supertools-go/pkg/models"
+	"github.com/Hakunari/supertools-go/pkg/config"
+	"github.com/google/uuid"
 	"github.com/hashicorp/consul/api"
 	"github.com/spf13/viper"
 	"os"
 )
 
+func genServiceId(serviceName, serviceHost string, port int) string {
+	return fmt.Sprintf("%s-%s-%d-%s", serviceName, serviceHost, port, uuid.New().String())
+}
+
 // RegisterService 注册服务
-func RegisterService(localConfig *models.ServiceLocalConfig) error {
+func RegisterService(localConfig *config.ServiceLocalConfig) error {
 
 	// register to consul.
 	consulConfig := api.DefaultConfig()
@@ -20,7 +25,10 @@ func RegisterService(localConfig *models.ServiceLocalConfig) error {
 		return err
 	}
 
+	localConfig.Service.Id = genServiceId(localConfig.Service.Name, localConfig.Service.Host, localConfig.Service.Port)
+
 	registration := &api.AgentServiceRegistration{
+		ID:      localConfig.Service.Id,
 		Name:    localConfig.Service.Name,
 		Address: localConfig.Service.Host,
 		Port:    localConfig.Service.Port,
@@ -39,7 +47,7 @@ func RegisterService(localConfig *models.ServiceLocalConfig) error {
 }
 
 // LoadCfgFromConsul 从 consul 获取指定服务的配置
-func LoadCfgFromConsul[T models.IAppConfig](consulAddr, serviceName string) (*T, error) {
+func LoadCfgFromConsul[T config.IAppConfig](consulAddr, serviceName string) (*T, error) {
 	consulConfig := api.DefaultConfig()
 	consulConfig.Address = consulAddr
 	client, err := api.NewClient(consulConfig)
@@ -69,9 +77,20 @@ func LoadCfgFromConsul[T models.IAppConfig](consulAddr, serviceName string) (*T,
 	}
 
 	var cfg T
+
 	if err = v.Unmarshal(&cfg); err != nil {
 		return nil, err
 	}
 
 	return &cfg, err
+}
+
+func DeRegisterService(localConfig *config.ServiceLocalConfig) error {
+	cfg := api.DefaultConfig()
+	cfg.Address = fmt.Sprintf("%s:%d", localConfig.Consul.Host, localConfig.Consul.Port)
+	client, err := api.NewClient(cfg)
+	if err != nil {
+		panic(err)
+	}
+	return client.Agent().ServiceDeregister(localConfig.Service.Id)
 }

@@ -2,7 +2,7 @@
 package logger
 
 import (
-	"github.com/Hakunari/supertools-go/pkg/models"
+	"github.com/Hakunari/supertools-go/pkg/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"
@@ -12,10 +12,10 @@ import (
 type ZapCore struct {
 	level zapcore.Level
 	zapcore.Core
-	bindingConfig *models.LoggerConfig
+	bindingConfig *config.LoggerConfig
 }
 
-func NewZapCore(level zapcore.Level, loggerConfig *models.LoggerConfig) *ZapCore {
+func NewZapCore(level zapcore.Level, loggerConfig *config.LoggerConfig) *ZapCore {
 	entity := &ZapCore{level: level, bindingConfig: loggerConfig}
 	syncer := entity.WriteSyncer()
 	levelEnabler := zap.LevelEnablerFunc(func(l zapcore.Level) bool {
